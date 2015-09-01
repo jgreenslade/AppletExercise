@@ -5,6 +5,9 @@
  */
 package edu.elon.contact;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Welcome to Homework 1. This is the package for you to add all of
  * your code to. This semester we are using Git and GitHub for the
@@ -24,6 +27,8 @@ public class HelloClass {
    * @param args array of string used for command line arguments.
    */
   public static void main(String[] args) {
-    System.out.println("Welcome to the Fall Semester");
+    System.out.println("Welcome to the Fall Semester \n");
+    
+    System.out.println("ETS in on October at 4:15.");
   }
 }
