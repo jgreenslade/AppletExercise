@@ -17,7 +17,7 @@ public class ContactController {
 	 *  Starts the application
 	 */
 	public void go() {
-		gui.showFrame();
+		gui.showErrorDialog();
 		
 	}
 

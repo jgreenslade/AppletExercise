@@ -41,7 +41,8 @@ public class Gui {
 		m_file.add(mi_exit);
 		m_file.add(mi_connect);
 
-		setTextFields(); // Make sure you re-write the variables to not be private
+		setTextFields(); // Make sure you re-write the variables to not be
+							// private
 
 		// tf_fName = new JTextField(15); // Set size on creation
 		// contentPane.add(tf_fName);
@@ -55,24 +56,24 @@ public class Gui {
 		// SpringLayout.EAST, l_fname);
 		// spring.putConstraint(SpringLayout.NORTH, tf_fName, 5,
 		// SpringLayout.NORTH, contentPane);
-		
-		String[] labels = {"Name: ", "Fax: ", "Email: ", "Address: "};
+
+		String[] labels = { "Name: ", "Fax: ", "Email: ", "Address: " };
 		int numPairs = labels.length;
 
-		//Create and populate the panel.
+		// Create and populate the panel.
 		JPanel p = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
-		    JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-		    p.add(l);
-		    JTextField textField = new JTextField(10);
-		    l.setLabelFor(textField);
-		    p.add(textField);
+			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			p.add(l);
+			JTextField textField = new JTextField(10);
+			l.setLabelFor(textField);
+			p.add(textField);
 		}
 
-		//Lay out the panel.
-		
+		// Lay out the panel.
+
 		frame.add(p);
-		
+
 		menuBar.add(m_file);
 		frame.pack();
 		frame.setSize(300, 350);
@@ -81,11 +82,17 @@ public class Gui {
 	}
 
 	private void setTextFields() {
-		
+
 	}
 
 	public void showFrame() {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void showErrorDialog() {
+		JOptionPane.showMessageDialog(frame, "You did not correctly speciffy db parameters", "DB Settings",
+				JOptionPane.ERROR_MESSAGE);
 
 	}
 
