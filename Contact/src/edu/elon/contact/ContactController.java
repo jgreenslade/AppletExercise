@@ -5,6 +5,7 @@ public class ContactController {
 	// Contants
 	// Private variables
 	private Gui gui;
+	private DBConnection dbConnection;
 	
 	/**
 	 * Standard Empty constructor
@@ -18,6 +19,9 @@ public class ContactController {
 	 */
 	public void go() {
 		gui.showErrorDialog();
+		
+		dbConnection = new DBConnection();
+		dbConnection.connect();
 		
 	}
 
