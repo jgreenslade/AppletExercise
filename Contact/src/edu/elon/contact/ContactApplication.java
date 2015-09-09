@@ -4,7 +4,7 @@
 
 package edu.elon.contact;
 
-public class ContactStart {
+public class ContactApplication {
 
 	public static void main(String[] args) {
 		ContactController c = new ContactController();
