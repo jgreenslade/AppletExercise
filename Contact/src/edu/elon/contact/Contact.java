@@ -5,25 +5,26 @@ package edu.elon.contact;
 
 public class Contact {
 	
+	private int index;
 	private String fName;
 	private String mName;
 	private String lName;
 	private String eMail;
 	private String major;
-	private int index;
+	
 	
 	public Contact() {
 		
 	}
 
-	public Contact(String fName, String mName, String lName, String eMail, String major, int index) {
+	public Contact( int index, String fName, String mName, String lName, String eMail, String major) {
 		super();
+		this.index = index;
 		this.fName = fName;
 		this.mName = mName;
 		this.lName = lName;
 		this.eMail = eMail;
 		this.major = major;
-		this.index = index;
 	}
 
 	public String getfName() {
@@ -32,6 +33,12 @@ public class Contact {
 
 	public void setfName(String fName) {
 		this.fName = fName;
+	}
+
+	@Override
+	public String toString() {
+		return index + ": " + fName + " " + mName + " " + lName + ", eMail= "
+				+ eMail + ", major= " + major + "]";
 	}
 
 	public String getmName() {

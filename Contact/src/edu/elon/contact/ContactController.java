@@ -9,8 +9,6 @@ public class ContactController {
 	// Contants
 	// Private variables
 	private Gui gui;
-	private DBConnection dbConnection;
-	
 	private ArrayList<Contact> contacts;
 	
 	/**
@@ -26,15 +24,18 @@ public class ContactController {
 	 */
 	public void go() {
 		
-		Contact me = new Contact("Jacopo", "Rush", "Greenslade", "jgreenslade@elon.edu", "CS", 1);
+		Contact me = new Contact(2, "Jacopo", "Rush", "Greenslade", "jgreenslade@elon.edu", "CS");
 		contacts.add(me);
 		
 		gui.getContactInfo(contacts, 0);
 		
-		dbConnection = new DBConnection();
-		DBUtil.getContacts(dbConnection.connect());
+		contacts = null;
+		contacts = DBUtil.getContacts("root", "mysqluser", "jdbc:mysql://localhost:3306", "", "", "");
 		
-		dbConnection.close();
+		for (Contact c: contacts) {
+			System.out.println(c.toString());
+		}
+	
 		
 	}
 
