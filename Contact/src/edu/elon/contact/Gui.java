@@ -1,8 +1,13 @@
+/**
+ * (c) Copyright 2015, Jacopo Greenslade
+ */
+
 package edu.elon.contact;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -26,15 +31,7 @@ public class Gui {
 	private JMenuBar menuBar;
 	private JMenu m_file, m_edit;
 	private JMenuItem mi_clearDB, mi_connect, mi_exit, mi_add, mi_update, mi_remove;
-	private JTextField tf_fName, tf_mName, tf_lName, tf_eMail, tf_major, tf_userName, tf_password, tf_IPAddress,
-			tf_DBName, tf_TableName;
 	private JButton b_previous, b_next, b_ok, b_cancel;
-
-	// Arrays
-	// private String[] labels = { "First Name", "Middle Name", "Last Name",
-	// "Email", "Major" };
-	// private JTextField[] textFields = { tf_fName, tf_mName, tf_lName,
-	// tf_eMail, tf_major };
 
 	private String[] labels = null;
 	private JTextField[] textFields = new JTextField[5];
@@ -48,6 +45,9 @@ public class Gui {
 		controller = aController;
 	}
 
+	/**
+	 * 
+	 */
 	public void makeGUI() {
 		frame = new JFrame("Title Goes Here");
 
@@ -74,6 +74,7 @@ public class Gui {
 		menuBar.add(m_file);
 		menuBar.add(m_edit);
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setJMenuBar(menuBar);
 
@@ -86,6 +87,7 @@ public class Gui {
 	 * @param position
 	 */
 	public void getContactInfo(Contact c) {
+
 		if (c == null) {
 			return;
 		}
@@ -95,6 +97,14 @@ public class Gui {
 		textFields[3].setText(c.geteMail());
 		textFields[4].setText(c.getMajor());
 		frame.repaint();
+	}
+
+	/**
+	 * 
+	 */
+	public static void showErrorDialog() {
+		JOptionPane.showMessageDialog(null, "You did not correctly speciffy db parameters", "DB Settings",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	private void setUpMenus() {
@@ -118,7 +128,6 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-
 			}
 		});
 		mi_connect.addActionListener(new ActionListener() {
@@ -148,13 +157,19 @@ public class Gui {
 			public void actionPerformed(ActionEvent e) {
 				// Call DBUtil Clear
 				DBUtil.removeAll();
+				mi_clearDB.setEnabled(false);
+				mi_remove.setEnabled(false);
+				mi_add.setEnabled(false);
+				mi_update.setEnabled(false);
+				controller.setContacts(new ArrayList<Contact>());
+				for (JTextField t : textFields) {
+					t.setText("");
+				}
 			}
 		});
 		mi_add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Set default values for DB
-				// Make connection Screen
 				setOkListener(1);
 				JPanel p = new JPanel(new SpringLayout());
 				String[] contactLabels = { "First Name", "Middle Name", "Last Name", "Email", "Major" };
@@ -163,7 +178,6 @@ public class Gui {
 				makePanel(p);
 				makeButtonSubPanel(p, 1);
 				makeGrid(p);
-				
 				frame.setContentPane(p);
 				frame.setVisible(true);
 				frame.repaint();
@@ -174,19 +188,35 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Update  ()");
+				int index = controller.getActiveContact();
+				System.out.println(index);
+
+				DBUtil.updateContact(new Contact(index + 1, textFields[0].getText(), textFields[1].getText(),
+						textFields[2].getText(), textFields[3].getText(), textFields[4].getText()));
+
+				controller.setContacts(DBUtil.getContacts());
+				controller.refreshGui();
 			}
 		});
 		mi_remove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Remove");
-
+				DBUtil.removeContact(controller.getActiveContact() + 1);
+				controller.setContacts(DBUtil.getContacts());
+				controller.refreshGui();
 			}
 		});
 
+		mi_clearDB.setEnabled(false);
+		mi_remove.setEnabled(false);
+		mi_add.setEnabled(false);
+		mi_update.setEnabled(false);
+
 		m_file.add(mi_clearDB);
-		m_file.add(mi_exit);
 		m_file.add(mi_connect);
+		m_file.addSeparator();
+		m_file.add(mi_exit);
 		m_edit.add(mi_add);
 		m_edit.add(mi_update);
 		m_edit.add(mi_remove);
@@ -197,11 +227,6 @@ public class Gui {
 		textFields[i].setText(t);
 	}
 
-	/**
-	 * @param 0
-	 *            for connect, 1 for add Give 0 or 1 to select which action the
-	 *            OK button should take
-	 */
 	private void setOkListener(int i) {
 		// First make sure there are no listeners
 		for (ActionListener a : b_ok.getActionListeners()) {
@@ -215,8 +240,9 @@ public class Gui {
 					System.out.println("Connect  A----B");
 					DBUtil.setDBParameters(textFields[0].getText(), textFields[1].getText(), textFields[2].getText(),
 							textFields[3].getText(), textFields[4].getText());
+
 					controller.setContacts(DBUtil.getContacts());
-					controller.refreshGui();
+					// controller.refreshGui();
 					JPanel p = new JPanel(new SpringLayout());
 					String[] contactLabels = { "First Name", "Middle Name", "Last Name", "Email", "Major" };
 					labels = contactLabels;
@@ -224,8 +250,15 @@ public class Gui {
 					makeButtonSubPanel(p, 0);
 					makeGrid(p);
 					frame.setContentPane(p);
+
+					mi_clearDB.setEnabled(true);
+					mi_remove.setEnabled(true);
+					mi_add.setEnabled(true);
+					mi_update.setEnabled(true);
+
 					frame.setVisible(true);
 					frame.repaint();
+
 					controller.refreshGui();
 				}
 			});
@@ -237,6 +270,15 @@ public class Gui {
 					System.out.println("Add  +++");
 					DBUtil.insertContact(new Contact(0, textFields[0].getText(), textFields[1].getText(),
 							textFields[2].getText(), textFields[3].getText(), textFields[4].getText()));
+					JPanel p = new JPanel(new SpringLayout());
+					makePanel(p);
+					makeButtonSubPanel(p, 0);
+					makeGrid(p);
+					frame.setContentPane(p);
+					frame.setVisible(true);
+					frame.repaint();
+					controller.setContacts(DBUtil.getContacts());
+					controller.refreshGui();
 				}
 			});
 		}
@@ -272,7 +314,16 @@ public class Gui {
 			public void actionPerformed(ActionEvent e) {
 				// Behavior
 				System.out.println("Cancel  xxx");
-
+				JPanel p = new JPanel(new SpringLayout());
+				String[] contactLabels = { "First Name", "Middle Name", "Last Name", "Email", "Major" };
+				labels = contactLabels;
+				makePanel(p);
+				makeButtonSubPanel(p, 0);
+				makeGrid(p);
+				frame.setContentPane(p);
+				frame.setVisible(true);
+				frame.repaint();
+				controller.refreshGui();
 			}
 		});
 	}
@@ -309,12 +360,6 @@ public class Gui {
 
 	private void makeGrid(JPanel p) {
 		SpringUtilities.makeCompactGrid(p, labels.length + 1, 2, 6, 6, 6, 6);
-	}
-
-	public void showErrorDialog() {
-		JOptionPane.showMessageDialog(frame, "You did not correctly speciffy db parameters", "DB Settings",
-				JOptionPane.ERROR_MESSAGE);
-
 	}
 
 }
