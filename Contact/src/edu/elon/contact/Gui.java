@@ -16,6 +16,11 @@ import edu.elon.util.DBUtil;
 
 import java.awt.*;
 
+/**
+ * GUI class for the Contact Application
+ * @author jgreenslade
+ *
+ */
 public class Gui {
 
 	public static final int FRAME_WIDTH = 300;
@@ -46,7 +51,7 @@ public class Gui {
 	}
 
 	/**
-	 * 
+	 * Creates the main frame for the GUI
 	 */
 	public void makeGUI() {
 		frame = new JFrame("Title Goes Here");
@@ -81,10 +86,9 @@ public class Gui {
 	}
 
 	/**
-	 * Get a contact from the contact list based on your current position in it
+	 * Get a contact and fill textFields with its info
 	 * 
-	 * @param c
-	 * @param position
+	 * @param c, Contact
 	 */
 	public void getContactInfo(Contact c) {
 
@@ -100,7 +104,7 @@ public class Gui {
 	}
 
 	/**
-	 * 
+	 * Shows an error if your DB info was incorrect
 	 */
 	public static void showErrorDialog() {
 		JOptionPane.showMessageDialog(null, "You did not correctly speciffy db parameters", "DB Settings",
