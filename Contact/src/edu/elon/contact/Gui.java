@@ -35,9 +35,18 @@ public class Gui {
 	private SpringLayout spring;
 	private JMenuBar menuBar;
 	private JMenu m_file, m_edit;
-	private JMenuItem mi_clearDB, mi_connect, mi_exit, mi_add, mi_update, mi_remove;
-	private JButton b_previous, b_next, b_ok, b_cancel;
-
+	private JMenuItem mi_clearDB;
+	private JMenuItem mi_connect;
+	private JMenuItem mi_exit;
+	private JMenuItem mi_add;
+	private JMenuItem mi_update;
+	private JMenuItem mi_remove;
+	private JButton b_previous;
+	private JButton b_next;
+	private JButton b_ok;
+	private JButton b_cancel;
+	
+	
 	private String[] labels = null;
 	private JTextField[] textFields = new JTextField[5];
 
