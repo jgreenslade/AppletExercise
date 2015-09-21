@@ -1,7 +1,9 @@
 package edu.elon.math;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -13,40 +15,72 @@ public class DinamicGui extends JFrame{
 	
 	private JTextField[] fields;
 	
+	 // Get from function
+	private int inputs = 5;
+	private String title = "To Be Determined";
+	
+    private JButton solve;
+    private JButton optimize;
+    private JTextField result;
+	
 	public DinamicGui() {
-		this.setTitle("Control GUI");
-	    //this.weatherData = weatherData;
+		// TODO Get title from which function
+		this.setTitle(title);
 	    createGui();
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.pack();
+	    this.setLocationRelativeTo(null);
 	    this.setVisible(true);
 	}
 
 	private void createGui() {
+		String[] optimizers = {"NelderMead", "Powell", "RandomWalk"};
+		
 		Container container = this.getContentPane();
-
-	    JPanel buttonPanel = new JPanel();
-	    JComboBox selectOptimizerPanel = new JComboBox();
+	    JPanel bottomPanel;
 	    
-	    JButton update;
-	    JComboBox select;
+	    JComboBox<String> select = new JComboBox<String>(optimizers);
 	    
-	    String[] optimizers = {"NelderMead", "Powell", "RandomWalk"};
+	    container.add(select, BorderLayout.NORTH);
+	    container.add(makeFields(inputs), BorderLayout.CENTER);
+	    container.add(bottomPanel = makeBottomPanel(), BorderLayout.SOUTH);
 	    
-	    buttonPanel.add(update = new JButton("Update"));
-	    selectOptimizerPanel.add(select = new JComboBox<String>(optimizers));
-	    
-	    container.add(selectOptimizerPanel, BorderLayout.NORTH);
-	    container.add(makeFields(2), BorderLayout.CENTER);
-	    container.add(buttonPanel, BorderLayout.SOUTH);
-	    
-	    update.addActionListener(e -> {
+	    solve.addActionListener(e -> {
+	    	System.out.println("Solve");
 	    	container.removeAll();
-	    	container.add(makeFields(7), BorderLayout.CENTER);
-	    	container.add(buttonPanel, BorderLayout.SOUTH);
+	    	container.add(select, BorderLayout.NORTH);
+	    	container.add(makeFields(++inputs), BorderLayout.CENTER);
+	    	container.add(bottomPanel, BorderLayout.SOUTH);
 	    	container.repaint();
 	    	container.revalidate();
 	    });
+	    optimize.addActionListener(e -> {
+	    	System.out.println("Optimize");
+	    	container.removeAll();
+	    	container.add(select, BorderLayout.NORTH);
+	    	container.add(makeFields(--inputs), BorderLayout.CENTER);
+	    	container.add(bottomPanel, BorderLayout.SOUTH);
+	    	container.repaint();
+	    	container.revalidate();
+	    });
+	}
+
+	private JPanel makeBottomPanel() {
+		JPanel resultPanel = new JPanel();
+	    JPanel buttonPanel = new JPanel();
+	    JPanel bottomPanel = new JPanel();
+	    
+	    resultPanel.add(new JLabel("Result: "), BorderLayout.WEST);
+	    resultPanel.add(result = new JTextField("0", 10), BorderLayout.EAST);
+	    
+	    buttonPanel.add(solve = new JButton("Solve"), BorderLayout.WEST);
+	    buttonPanel.add(optimize = new JButton("Optimize"), BorderLayout.EAST);
+	    
+	    bottomPanel.setLayout(new GridLayout(2, 1));
+	    bottomPanel.add(resultPanel);
+	    bottomPanel.add(buttonPanel);
+	    
+	    return bottomPanel;
 	}
 
 	private JScrollPane makeFields(int n) {
