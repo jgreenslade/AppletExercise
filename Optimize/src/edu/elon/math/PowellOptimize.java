@@ -1,11 +1,14 @@
 package edu.elon.math;
 
-public class PowellOptimize implements OptimizeBehavior{
+public class PowellOptimize implements OptimizeBehavior {
 
 	@Override
-	public void optimize() {
-		// TODO Auto-generated method stub
-		
+	public Double optimize(Function function) {
+		Double optimalValue = null;
+		Powell powell = new Powell();
+		optimalValue = powell.findMinimum(function);
+		function.getInputValues();
+		return optimalValue;
 	}
 
 }
