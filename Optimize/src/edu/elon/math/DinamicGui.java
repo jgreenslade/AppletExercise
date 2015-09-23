@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -28,6 +29,7 @@ public class DinamicGui extends JFrame implements Observer{
     
 	public DinamicGui(Function function) {
 		this.f = function;
+		f.addObserver((Observer) this);
 		this.setTitle(f.getTitle());
 		inputNames = f.getInputNames();
 		values = f.getInputValues();
@@ -40,31 +42,29 @@ public class DinamicGui extends JFrame implements Observer{
 	}
 
 	private void createGui() {
-		String[] optimizers = {"edu.elon.math.NelderMead", "edu.elon.math.Powell", "edu.elon.math.RandomWalk"};
+		
+		String[] optimizers = getOptimizers();
 		
 		Container container = this.getContentPane();
 	    JPanel bottomPanel;
 	    
 	    JComboBox<String> select = new JComboBox<String>(optimizers);
 	    
-	    select.setSelectedIndex(0);
-	    select.addActionListener(e -> {
-	    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	    });
+	    makeOptimizerListener(select);
 	    
 	    container.add(select, BorderLayout.NORTH);
 	    container.add(makeFields(), BorderLayout.CENTER);
 	    container.add(bottomPanel = makeBottomPanel(), BorderLayout.SOUTH);
 	    
 	    solve.addActionListener(e -> {
-	    	System.out.println("Solve");
-	    	container.removeAll();
 	    	f.setInputValues(getValues());
 	    	f.evaluate();
 	    	updateOutput(f);
+	    	container.removeAll();
 	    	container.add(select, BorderLayout.NORTH);
 	    	container.add(makeFields(), BorderLayout.CENTER);
 	    	container.add(bottomPanel, BorderLayout.SOUTH);
+	    	updateInputs(f);
 	    	container.repaint();
 	    	container.revalidate();
 	    });
@@ -75,10 +75,38 @@ public class DinamicGui extends JFrame implements Observer{
 	    	container.add(makeFields(), BorderLayout.CENTER);
 	    	container.add(bottomPanel, BorderLayout.SOUTH);
 	    	f.performOptimizeBehavior();
-	    	updateOutput(f);
 	    	container.repaint();
 	    	container.revalidate();
 	    });
+	}
+
+	private void makeOptimizerListener(JComboBox<String> select) {
+		for (int i = 0; i < select.getItemCount(); i ++) {
+			select.setSelectedIndex(i);
+			String name = select.getItemAt(i);
+		    select.addActionListener(e -> {
+		    	try {
+		    		Class<?> c = Class.forName(name + "Optimize");
+					f.setOptimizeBehavior((OptimizeBehavior) c.newInstance());
+				} catch (Exception e1) {
+					System.out.println(e);
+				}
+		    });
+		}
+	}
+
+	private String[] getOptimizers() {
+		String path = "";
+		try {
+			path = System.getenv("CLASSPATH");
+			String[] directories = path.split(";");
+			return directories;
+		} catch (NullPointerException e) {
+			System.out.println("Environment Variable not Defined!");
+		}
+		
+		return null;
+
 	}
 
 	private ArrayList<Double> getValues() {
@@ -132,16 +160,17 @@ public class DinamicGui extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		updateInputs((Function) o);
-		updateOutput((Function) o);
+		Function function = (Function) o;
+		updateInputs(function);
+		updateOutput(function);
 	}
 
-	private void updateOutput(Function o) {
-		result.setText(o.getOutput() + "");
+	private void updateOutput(Function function) {
+		result.setText(function.getOutput() + "");
 	}
 
-	private void updateInputs(Function o) {
-		ArrayList<Double> inputValues = o.getInputValues();
+	private void updateInputs(Function function) {
+		ArrayList<Double> inputValues = function.getInputValues();
 		for (int i = 0; i < inputValues.size(); i++) {
 			fields[i].setText(inputValues.get(i) + "");
 		}

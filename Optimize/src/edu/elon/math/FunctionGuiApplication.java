@@ -16,8 +16,7 @@ public class FunctionGuiApplication {
 		JFrame gui2 = new DinamicGui(dell);
 		
 		Function mAS = new MinimumAbsoluteSum();
-		mAS.setOptimizeBehavior(new RandomWalkOptimize());
+		mAS.setOptimizeBehavior(new PowellOptimize());
 		JFrame gui3 = new DinamicGui(mAS);
 	}
-
 }

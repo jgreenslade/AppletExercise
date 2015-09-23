@@ -10,5 +10,4 @@ public class PowellOptimize implements OptimizeBehavior {
 		function.getInputValues();
 		return optimalValue;
 	}
-
 }

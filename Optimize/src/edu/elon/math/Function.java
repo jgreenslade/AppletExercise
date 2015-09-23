@@ -167,6 +167,11 @@ public abstract class Function extends Observable{
 	public Double performOptimizeBehavior() {
 		return optimizeBehavior.optimize(this);
 	}
+	
+	private void valuesChanged() {
+		setChanged();
+		notifyObservers();
+	}
 
 	/**
 	 * Set the current set of input names for the input parameters to the
@@ -178,8 +183,7 @@ public abstract class Function extends Observable{
 	 */
 	public void setInputNames(ArrayList<String> inputNames) {
 		this.inputNames = inputNames;
-		hasChanged();
-		notifyObservers();
+		valuesChanged();
 	}
 
 	/**
@@ -191,8 +195,7 @@ public abstract class Function extends Observable{
 	 */
 	public void setInputValues(ArrayList<Double> inputValues) {
 		this.inputValues = inputValues;
-		hasChanged();
-		notifyObservers();
+		valuesChanged();
 	}
 
 	/**
@@ -226,8 +229,7 @@ public abstract class Function extends Observable{
 	 */
 	public void setOutput(Double output) {
 		this.output = output;
-		hasChanged();
-		notifyObservers();
+		valuesChanged();
 	}
 
 	/**
