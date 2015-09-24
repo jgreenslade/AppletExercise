@@ -2,6 +2,7 @@
  * Function.java 1.0 August 20, 2015
  *
  * Copyright (c) 2015 David J. Powell, Elon University
+ * Copyright (c) 2015 Jacopo Greenslade (Extended Code)
  * Elon, North Carolina, 27244 U.S.A.
  * All Rights Reserved
  */

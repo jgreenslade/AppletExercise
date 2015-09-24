@@ -1,5 +1,13 @@
+/**
+ * Copyright (c) 2015, Jacopo Greenslade
+ */
 package edu.elon.math;
 
+/**
+ * Optimization Behavior for the Function class' Strategy pattern using NelderMead
+ * @author jgreenslade
+ *
+ */
 public class NelderMeadOptimize implements OptimizeBehavior{
 
 	@Override
