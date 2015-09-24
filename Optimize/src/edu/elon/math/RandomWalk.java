@@ -138,7 +138,7 @@ public class RandomWalk {
    * Sets the largest value that an input may have
    * 
    * @param largestValue double representing the largest value that an
-   *        input may have.
+   *          input may have.
    */
   public void setLargestValue(double largestValue) {
     this.largestValue = largestValue;
@@ -149,7 +149,7 @@ public class RandomWalk {
    * parameter.
    * 
    * @param maxNumberEvaluations int representing max number of
-   *        function evaluations.
+   *          function evaluations.
    */
   public void setMaxNumberEvaluations(int maxNumberEvaluations) {
     this.maxNumberEvaluations = maxNumberEvaluations;
@@ -159,7 +159,7 @@ public class RandomWalk {
    * Sets the smallest value that an input may have
    * 
    * @param smallestValue int double representing the smallest value
-   *        that an input may have.
+   *          that an input may have.
    */
   public void setSmallestValue(double smallestValue) {
     this.smallestValue = smallestValue;

@@ -8,7 +8,7 @@ package edu.elon.math;
  * @author jgreenslade
  *
  */
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,22 +16,22 @@ import org.junit.Test;
 
 public class MinimumAbsoluteSumTest {
 
-	private MinimumAbsoluteSum MAS;
-	
-	@Before
-	public void setUp() throws Exception {
-		MAS = new MinimumAbsoluteSum();
-	}
+  private MinimumAbsoluteSum MAS;
 
-	@After
-	public void tearDown() throws Exception {
-		MAS = null;
-	}
+  @Before
+  public void setUp() throws Exception {
+    MAS = new MinimumAbsoluteSum();
+  }
 
-	@Test
-	public void testEvaluate() {
-		System.out.println(MAS.evaluate());
-		assertEquals(MAS.evaluate(), 1000.0, 0.1);
-	}
+  @After
+  public void tearDown() throws Exception {
+    MAS = null;
+  }
+
+  @Test
+  public void testEvaluate() {
+    System.out.println(MAS.evaluate());
+    assertEquals(MAS.evaluate(), 1000.0, 0.1);
+  }
 
 }

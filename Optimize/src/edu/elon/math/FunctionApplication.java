@@ -32,39 +32,43 @@ public class FunctionApplication {
     double[] startPoint = { -5.0, 0.0 };
     Function function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
-    //function.setOptimizationTechnique("edu.elon.math.RandomWalk");
+    // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
     function.setOptimizeBehavior(new RandomWalkOptimize());
     function.performOptimizeBehavior();
-    System.out.println("Optimal Point:" + function.getOutput() + "\n" + function);
+    System.out
+            .println("Optimal Point:" + function.getOutput() + "\n" + function);
 
     // compare RandomWalk to Powell
     startPoint[0] = -5.0;
     startPoint[1] = 0.0;
     function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
-    //function.setOptimizationTechnique("edu.elon.math.Powell");
+    // function.setOptimizationTechnique("edu.elon.math.Powell");
     function.setOptimizeBehavior(new PowellOptimize());
     function.performOptimizeBehavior();
-    System.out.println("Optimal Point:" + function.getOutput() + "\n" + function);
+    System.out
+            .println("Optimal Point:" + function.getOutput() + "\n" + function);
 
     // test dell
     startPoint[0] = 0;
     startPoint[1] = 0;
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
-    //function.setOptimizationTechnique("edu.elon.math.RandomWalk");
+    // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
     function.setOptimizeBehavior(new RandomWalkOptimize());
     function.performOptimizeBehavior();
-    System.out.println("Optimal Point:" + function.getOutput() + "\n" + function);
+    System.out
+            .println("Optimal Point:" + function.getOutput() + "\n" + function);
     // compare RandomWalk to Powell
     startPoint[0] = 0;
     startPoint[1] = 0;
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
-    //function.setOptimizationTechnique("edu.elon.math.Powell");
+    // function.setOptimizationTechnique("edu.elon.math.Powell");
     function.setOptimizeBehavior(new PowellOptimize());
     function.performOptimizeBehavior();
-    System.out.println("Optimal Point:" + function.getOutput() + "\n" + function);
+    System.out
+            .println("Optimal Point:" + function.getOutput() + "\n" + function);
 
     System.exit(0);
   }

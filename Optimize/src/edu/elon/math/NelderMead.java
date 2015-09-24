@@ -51,7 +51,7 @@ public class NelderMead {
    * instance, field called inputValues;
    * 
    * @param function Function instance containing function starting
-   *        point and evaluation logic
+   *          point and evaluation logic
    * @return Double value for optimal design.
    */
   public Double goSimplex(Function function) {
@@ -75,7 +75,7 @@ public class NelderMead {
 
   @SuppressWarnings("unused")
   private void amoeba(double[][] p, double[] y, int elondim, float ftol,
-                      Integer nFunk) {
+          Integer nFunk) {
     // not implemented
   }
 

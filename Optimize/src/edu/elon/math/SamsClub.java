@@ -32,7 +32,7 @@ public class SamsClub extends Function {
    * <Double> passed in as a parameter
    * 
    * @param inputs ArrayList<Double> representing values for initial
-   *        design point.
+   *          design point.
    */
   public SamsClub(ArrayList<Double> inputs) {
     this(inputs, createDefaultInputNames());
@@ -43,9 +43,9 @@ public class SamsClub extends Function {
    * from the parameters.
    * 
    * @param values ArrayList<Double> representing values of initial
-   *        design point.
+   *          design point.
    * @param names ArrayList<String> representing names of each input
-   *        parameter
+   *          parameter
    */
   public SamsClub(ArrayList<Double> values, ArrayList<String> names) {
     this.setInputValues(values);
@@ -59,7 +59,7 @@ public class SamsClub extends Function {
    * passed in as an array of double.
    * 
    * @param inputs double[] array of values to set initial design
-   *        point.
+   *          point.
    */
   public SamsClub(double[] inputs) {
     ArrayList<Double> values = new ArrayList<Double>();
@@ -97,7 +97,8 @@ public class SamsClub extends Function {
     boolean result = false;
     if (o instanceof SamsClub) {
       SamsClub sc = (SamsClub) o;
-      result = this.getInputNames().equals(sc.getInputNames()) && getInputValues().equals(sc.getInputValues());
+      result = this.getInputNames().equals(sc.getInputNames())
+              && getInputValues().equals(sc.getInputValues());
     }
     return result;
   }
@@ -111,9 +112,9 @@ public class SamsClub extends Function {
   public Double evaluate() {
     double x = getInputValues().get(0).doubleValue();
     double y = getInputValues().get(1).doubleValue();
-    double cost =
-      60.0 / (1 + Math.pow(x + 1, 2) + Math.pow(y - 3, 2)) + 20.0 / (1 + Math.pow(x - 1, 2) + Math.pow(y - 3, 2))
-                  + 30.0 / (1 + Math.pow(x, 2) + Math.pow(y + 4, 2));
+    double cost = 60.0 / (1 + Math.pow(x + 1, 2) + Math.pow(y - 3, 2))
+            + 20.0 / (1 + Math.pow(x - 1, 2) + Math.pow(y - 3, 2))
+            + 30.0 / (1 + Math.pow(x, 2) + Math.pow(y + 4, 2));
 
     this.setOutput(new Double(cost));
     return this.getOutput();

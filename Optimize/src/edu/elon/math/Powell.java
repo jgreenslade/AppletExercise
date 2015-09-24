@@ -61,8 +61,8 @@ public class Powell {
       }
     };
 
-    CobylaExitStatus status =
-      Cobyla.FindMinimum(calcfc, numberInputs, 0, inputArray, rhobeg, rhoend, printLevel, maxIterations);
+    CobylaExitStatus status = Cobyla.FindMinimum(calcfc, numberInputs, 0,
+            inputArray, rhobeg, rhoend, printLevel, maxIterations);
     System.out.println("Powell optimization exit status: " + status);
 
     // at end the optimal input vector is in numberInputs
@@ -82,7 +82,7 @@ public class Powell {
    * Converts an arraylist of Double into an array of doubles
    * 
    * @param aStartingPoint arraylist of Double representing an input
-   *        point for an optimization problem
+   *          point for an optimization problem
    * @return double array of input point represented as a 1D vector
    */
   private double[] convertArrayListToDouble(ArrayList<Double> aStartingPoint) {
@@ -101,7 +101,8 @@ public class Powell {
    * @param aInputArray input array of double values
    * @return input arraylist of Double values
    */
-  private ArrayList<Double> convertDoubleArrayToArrayList(double[] aInputArray) {
+  private ArrayList<Double> convertDoubleArrayToArrayList(
+          double[] aInputArray) {
     ArrayList<Double> bestInputPoint = new ArrayList<Double>();
     for (double d : aInputArray) {
       bestInputPoint.add(d);
