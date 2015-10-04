@@ -65,9 +65,9 @@ public class DinamicGui extends JFrame implements Observer {
   public void update(Observable o, Object arg) {
     Function function = (Function) o;
     updateInputs(function);
-    updateOutput(function);	  
-//	  updateInputs(f);
-//	  updateOutput(f);
+    updateOutput(function);
+    // updateInputs(f);
+    // updateOutput(f);
   }
 
   private void createGui() {
@@ -96,25 +96,24 @@ public class DinamicGui extends JFrame implements Observer {
       container.revalidate();
     });
     optimize.addActionListener(e -> {
-    	
-      f.setInputValues(getValues());	// This fixes it for the moment  FIX
-      
+
+      f.setInputValues(getValues()); // This fixes it for the moment
+                                     // FIXED
+
       container.removeAll();
       container.add(select, BorderLayout.NORTH);
       container.add(makeFields(), BorderLayout.CENTER);
       container.add(bottomPanel, BorderLayout.SOUTH);
-      
-      
 
       // Reflection sets the right optimizer
       String className = select.getSelectedItem() + "";
       try {
-//        Class<?> c1 = Class.forName(className);
-//        //System.out.println(c1);
-//        OptimizeBehavior o = (OptimizeBehavior) c1.newInstance();
-    	  
-    	
-        f.setOptimizeBehavior(OptimizerFactory.makeInstance().createOptimizer(className));
+        // Class<?> c1 = Class.forName(className);
+        // //System.out.println(c1);
+        // OptimizeBehavior o = (OptimizeBehavior) c1.newInstance();
+
+        f.setOptimizeBehavior(
+                OptimizerFactory.makeInstance().createOptimizer(className));
       } catch (Exception e1) {
         System.out.println(e);
       }
@@ -127,8 +126,8 @@ public class DinamicGui extends JFrame implements Observer {
       }
       ListenerThread l = new ListenerThread();
       l.start();
-      container.repaint();		// Job of Optimizer
-      container.revalidate();	// Fix
+      container.repaint(); // Job of Optimizer
+      container.revalidate(); // Fix
     });
 
   }

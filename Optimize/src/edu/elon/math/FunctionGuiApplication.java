@@ -16,15 +16,15 @@ public class FunctionGuiApplication {
   public static void main(String[] args) {
 
     Function samsClub = new SamsClub();
-    // samsClub.setOptimizeBehavior(new RandomWalkOptimize());
     JFrame gui1 = new DinamicGui(samsClub);
+    gui1.setLocation(300, 400);
 
     Function dell = new Dell();
-    // dell.setOptimizeBehavior(new RandomWalkOptimize());
     JFrame gui2 = new DinamicGui(dell);
+    gui2.setLocation(500, 400);
 
     Function mAS = new MinimumAbsoluteSum();
-    // mAS.setOptimizeBehavior(new PowellOptimize());
     JFrame gui3 = new DinamicGui(mAS);
+    gui3.setLocation(700, 400);
   }
 }
