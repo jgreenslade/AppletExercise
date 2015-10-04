@@ -20,7 +20,7 @@ import java.util.Vector;
  * @author dpowell2
  * @version 1.0
  */
-public class NelderMead {
+public class NelderMead implements OptimizeBehavior{
 
   private final double initialSimplexSize = .1;
   private int nDim;
@@ -32,6 +32,15 @@ public class NelderMead {
    */
   public NelderMead() {
     // intentionally empty
+  }
+  
+  @Override
+  public Double optimize(Function function) {
+    Double optimalValue = null;
+    NelderMead nm = new NelderMead();
+    optimalValue = nm.goSimplex(function);
+    function.getInputValues();
+    return optimalValue;
   }
 
   /**

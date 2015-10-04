@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @version 1.0
  *
  */
-public class Powell {
+public class Powell implements OptimizeBehavior{
   private int maxIterations = 40000;
   private int printLevel = 0;
   private double rhobeg = 0.5;
@@ -33,6 +33,15 @@ public class Powell {
    */
   public Powell() {
     // intentionally empty
+  }
+  
+  @Override
+  public Double optimize(Function function) {
+    Double optimalValue = null;
+    Powell powell = new Powell();
+    optimalValue = powell.findMinimum(function);
+    function.getInputValues();
+    return optimalValue;
   }
 
   /**

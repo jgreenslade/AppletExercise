@@ -65,7 +65,9 @@ public class DinamicGui extends JFrame implements Observer {
   public void update(Observable o, Object arg) {
     Function function = (Function) o;
     updateInputs(function);
-    updateOutput(function);
+    updateOutput(function);	  
+//	  updateInputs(f);
+//	  updateOutput(f);
   }
 
   private void createGui() {
@@ -94,25 +96,29 @@ public class DinamicGui extends JFrame implements Observer {
       container.revalidate();
     });
     optimize.addActionListener(e -> {
-
-      // System.out.println("Optimize");
+    	
+      f.setInputValues(getValues());	// This fixes it for the moment  FIX
+      
       container.removeAll();
       container.add(select, BorderLayout.NORTH);
       container.add(makeFields(), BorderLayout.CENTER);
       container.add(bottomPanel, BorderLayout.SOUTH);
+      
+      
 
       // Reflection sets the right optimizer
-      String className = select.getSelectedItem() + "Optimize";
+      String className = select.getSelectedItem() + "";
       try {
-        Class<?> c1 = Class.forName(className);
-        System.out.println(c1);
-        OptimizeBehavior o = (OptimizeBehavior) c1.cast(c1.newInstance());
-        f.setOptimizeBehavior(o);
+//        Class<?> c1 = Class.forName(className);
+//        //System.out.println(c1);
+//        OptimizeBehavior o = (OptimizeBehavior) c1.newInstance();
+    	  
+    	
+        f.setOptimizeBehavior(OptimizerFactory.makeInstance().createOptimizer(className));
       } catch (Exception e1) {
         System.out.println(e);
       }
       class ListenerThread extends Thread {
-
         @Override
         public void run() {
           f.performOptimizeBehavior();
@@ -121,8 +127,8 @@ public class DinamicGui extends JFrame implements Observer {
       }
       ListenerThread l = new ListenerThread();
       l.start();
-      container.repaint();
-      container.revalidate();
+      container.repaint();		// Job of Optimizer
+      container.revalidate();	// Fix
     });
 
   }
@@ -136,7 +142,6 @@ public class DinamicGui extends JFrame implements Observer {
     } catch (NullPointerException e) {
       System.out.println("Environment Variable not Defined!");
     }
-
     return null;
 
   }

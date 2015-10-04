@@ -33,7 +33,7 @@ public class FunctionApplication {
     Function function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
     // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
-    function.setOptimizeBehavior(new RandomWalkOptimize());
+    function.setOptimizeBehavior(new RandomWalk());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -44,7 +44,7 @@ public class FunctionApplication {
     function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
     // function.setOptimizationTechnique("edu.elon.math.Powell");
-    function.setOptimizeBehavior(new PowellOptimize());
+    function.setOptimizeBehavior(new Powell());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -55,7 +55,7 @@ public class FunctionApplication {
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
     // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
-    function.setOptimizeBehavior(new RandomWalkOptimize());
+    function.setOptimizeBehavior(new RandomWalk());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -65,7 +65,7 @@ public class FunctionApplication {
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
     // function.setOptimizationTechnique("edu.elon.math.Powell");
-    function.setOptimizeBehavior(new PowellOptimize());
+    function.setOptimizeBehavior(new Powell());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
