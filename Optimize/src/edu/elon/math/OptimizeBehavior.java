@@ -12,6 +12,14 @@ package edu.elon.math;
  */
 public interface OptimizeBehavior {
 
+  /**
+   * Calls the optimization method of the optimizer and returns the
+   * final value
+   * 
+   * @param f, the function used to find the optimmal value 
+   * @return,
+   *          final optimized value
+   */
   public Double optimize(Function f);
 
 }

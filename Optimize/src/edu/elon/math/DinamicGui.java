@@ -87,13 +87,14 @@ public class DinamicGui extends JFrame implements Observer {
       f.setInputValues(getValues());
       f.evaluate();
       updateOutput(f);
-      container.removeAll();
-      container.add(select, BorderLayout.NORTH);
-      container.add(makeFields(), BorderLayout.CENTER);
-      container.add(bottomPanel, BorderLayout.SOUTH);
       updateInputs(f);
-      container.repaint();
-      container.revalidate();
+      // container.removeAll();
+      // container.add(select, BorderLayout.NORTH);
+      // container.add(makeFields(), BorderLayout.CENTER);
+      // container.add(bottomPanel, BorderLayout.SOUTH);
+      // updateInputs(f);
+      // container.repaint();
+      // container.revalidate();
     });
     optimize.addActionListener(e -> {
 
@@ -159,7 +160,7 @@ public class DinamicGui extends JFrame implements Observer {
     JPanel bottomPanel = new JPanel();
 
     resultPanel.add(new JLabel("Result: "), BorderLayout.WEST);
-    resultPanel.add(result = new JTextField("0"), BorderLayout.EAST);
+    resultPanel.add(result = new JTextField("0", 15), BorderLayout.EAST);
 
     buttonPanel.add(solve = new JButton("Solve"), BorderLayout.WEST);
     buttonPanel.add(optimize = new JButton("Optimize"), BorderLayout.EAST);

@@ -20,7 +20,7 @@ import java.util.Vector;
  * @author dpowell2
  * @version 1.0
  */
-public class NelderMead implements OptimizeBehavior{
+public class NelderMead implements OptimizeBehavior {
 
   private final double initialSimplexSize = .1;
   private int nDim;
@@ -32,15 +32,6 @@ public class NelderMead implements OptimizeBehavior{
    */
   public NelderMead() {
     // intentionally empty
-  }
-  
-  @Override
-  public Double optimize(Function function) {
-    Double optimalValue = null;
-    NelderMead nm = new NelderMead();
-    optimalValue = nm.goSimplex(function);
-    function.getInputValues();
-    return optimalValue;
   }
 
   /**
@@ -74,6 +65,12 @@ public class NelderMead implements OptimizeBehavior{
 
     System.out.println("Nelder Mead stub invoked");
     return new Double(objective);
+  }
+
+  @Override
+  public Double optimize(Function function) {
+    Double optimalValue = this.goSimplex(function);
+    return optimalValue;
   }
 
   @SuppressWarnings("unused")

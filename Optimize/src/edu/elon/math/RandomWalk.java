@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @version 1.0
  * 
  */
-public class RandomWalk implements OptimizeBehavior{
+public class RandomWalk implements OptimizeBehavior {
   private ArrayList<Double> bestInputValues;
   private double largestValue;
   private int maxNumberEvaluations;
@@ -35,15 +35,6 @@ public class RandomWalk implements OptimizeBehavior{
     maxNumberEvaluations = 10000;
     smallestValue = -100.0;
     largestValue = 100.0;
-  }
-  
-  @Override
-  public Double optimize(Function function) {
-    Double optimalValue = null;
-    RandomWalk rw = new RandomWalk();
-    optimalValue = rw.guess(function);
-    function.getInputValues();
-    return optimalValue;
   }
 
   /**
@@ -131,6 +122,12 @@ public class RandomWalk implements OptimizeBehavior{
     // set best inputs and value in f
     f.setInputValues(bestInputValues);
     f.setOutput(optimalValue);
+    return optimalValue;
+  }
+
+  @Override
+  public Double optimize(Function function) {
+    Double optimalValue = this.guess(function);
     return optimalValue;
   }
 

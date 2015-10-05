@@ -1,5 +1,16 @@
+/**
+ * Copyright (c) 2015, Jacopo Greenslade
+ */
 package edu.elon.math;
 
+/**
+ * 
+ * Start each class or interface with a summary.
+ *
+ * @author jgreenslade
+ * @version 1.0
+ *
+ */
 public class OptimizerFactory {
 
   private static OptimizerFactory factory;
@@ -26,8 +37,7 @@ public class OptimizerFactory {
    * Creates an instance of one of the optimizers based on a String
    * value
    * 
-   * @param name, name of OptimizeBehavior to create 
-   * @return, instance
+   * @param name, name of OptimizeBehavior to create @return, instance
    *          of OptimizeBehavior
    */
   public OptimizeBehavior createOptimizer(String name) {
