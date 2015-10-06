@@ -32,8 +32,7 @@ public class FunctionApplication {
     double[] startPoint = { -5.0, 0.0 };
     Function function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
-    // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
-    function.setOptimizeBehavior(new RandomWalk());
+    function.setOptimizeBehavior("edu.elon.math.RandomWalk");
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -43,8 +42,7 @@ public class FunctionApplication {
     startPoint[1] = 0.0;
     function = new SamsClub(startPoint);
     System.out.println("Starting Point:\n" + function);
-    // function.setOptimizationTechnique("edu.elon.math.Powell");
-    function.setOptimizeBehavior(new Powell());
+    function.setOptimizeBehavior("edu.elon.math.Powell");
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -54,8 +52,8 @@ public class FunctionApplication {
     startPoint[1] = 0;
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
-    // function.setOptimizationTechnique("edu.elon.math.RandomWalk");
-    function.setOptimizeBehavior(new RandomWalk());
+    function.setOptimizeBehavior("edu.elon.math.RandomWalk");
+    // function.setOptimizeBehavior(new RandomWalk());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);
@@ -64,8 +62,8 @@ public class FunctionApplication {
     startPoint[1] = 0;
     function = new Dell(startPoint);
     System.out.println("Starting Point:\n" + function);
-    // function.setOptimizationTechnique("edu.elon.math.Powell");
-    function.setOptimizeBehavior(new Powell());
+    function.setOptimizeBehavior("edu.elon.math.Powell");
+    // function.setOptimizeBehavior(new Powell());
     function.performOptimizeBehavior();
     System.out
             .println("Optimal Point:" + function.getOutput() + "\n" + function);

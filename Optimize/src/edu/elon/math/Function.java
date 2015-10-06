@@ -200,10 +200,12 @@ public abstract class Function extends Observable {
   /**
    * Sets the optimizeBehavior field
    * 
-   * @param o, type OptimizeBehavior variable
+   * @param className, name of optimizer to instantiate
    */
-  public void setOptimizeBehavior(OptimizeBehavior o) {
-    optimizeBehavior = o;
+  public void setOptimizeBehavior(String className) {
+    optimizeBehavior = OptimizerFactory.makeInstance()
+            .createOptimizer(className);
+    // optimizeBehavior = o;
   }
 
   /**
