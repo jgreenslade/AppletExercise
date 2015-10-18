@@ -10,6 +10,9 @@ package edu.elon.math;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import flanagan.math.Minimization;
+import flanagan.math.MinimizationFunction;
+
 /**
  * Nelder Mead also known as direct simplex method is a widely used
  * nonlinear unconstrained optimization technique. The goSimplex code
@@ -26,12 +29,16 @@ public class NelderMead implements OptimizeBehavior {
   private int nDim;
   private double[] startPoint;
   private double[][] vertices;
+  
+  private Minimization flanaganMinimization;
+  private MinimizationFunction minFunction;
 
   /**
    * Default constructor to satisfy coding best practices
    */
   public NelderMead() {
     // intentionally empty
+	  flanaganMinimization = new Minimization();
   }
 
   /**
@@ -62,11 +69,55 @@ public class NelderMead implements OptimizeBehavior {
     // similarity check
     getElonCopyrightVertices();
     createInitialSetOfPoints();
-
+    
+    // This is my code :) ---------------------------------------------------------------- Jacooooooooooooooooooo -----------------------
+    System.out.println("Expected: " + function.getInputValues().size() +"\nActual: " + startPoint.length);
+	  minFunction = new MinimizationFunction() {
+	
+		  
+		@Override
+		public double function(double[] param) {
+			double result = function.evaluate();
+			if (function.isMinimize()) {
+				return result;
+			}
+			return result * (-1);
+		}
+	};
+	double[] step = new double[startPoint.length];
+	for (int i = 0; i < startPoint.length; i++) {
+		if (Math.abs(startPoint[i]) < 1) {
+			step[i] = 1.0;
+		} else {
+			step[i] = 0.5*startPoint[i];
+		}
+	}
+	 flanaganMinimization.nelderMead(minFunction, startPoint, step, 1e-15);
+	 
+	 function.setInputValues(convertDoubleArrayToArrayList(startPoint));
+    
     System.out.println("Nelder Mead stub invoked");
-    return new Double(objective);
+    //return new Double(objective);
+    return function.getOutput();
+ // This is the end of my code :) --------------------------------------------------- Jacooooooooooooooooooooo  ----------------------
   }
 
+  /**
+   * Converts a input point repesented as a one dimensional array of
+   * doubles into an arraylist of double
+   * 
+   * @param aInputArray input array of double values
+   * @return input arraylist of Double values
+   */
+  private ArrayList<Double> convertDoubleArrayToArrayList(
+          double[] aInputArray) {
+    ArrayList<Double> bestInputPoint = new ArrayList<Double>();
+    for (double d : aInputArray) {
+      bestInputPoint.add(d);
+    }
+    return bestInputPoint;
+  }
+  
   @Override
   public Double optimize(Function function) {
     Double optimalValue = this.goSimplex(function);
@@ -86,6 +137,7 @@ public class NelderMead implements OptimizeBehavior {
   }
 
   private void createInitialSetOfPoints() {
+	  
     for (int i = 2; i < nDim + 2; i++) {
       for (int j = 1; j < startPoint.length; j++) {
         double value = initialSimplexSize * startPoint[j];
